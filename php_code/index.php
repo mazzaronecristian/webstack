@@ -1,3 +1,6 @@
+<?php
+include 'ctf_core.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src='app.js'></script>
+
+<script ></script>
+
 </head>
 <body class="bg-light">
+    <span id='parolaNascosta'>cookie</span>
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card p-4 shadow" style="width: 400px;">
             <h3 class="text-center mb-4">Login</h3>
