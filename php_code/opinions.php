@@ -32,7 +32,11 @@ if (!$dbconn) {
 
     $data = [];
     while ($row = pg_fetch_row($result)) {
-    $data[] = $row[0];
+        $rowResult = [];
+        $rowResult['username'] = "ctf_doggy"; 
+        $rowResult['opinion'] = $row[0];
+
+        $data[] = $rowResult;
     }
 
     pg_free_result($result);

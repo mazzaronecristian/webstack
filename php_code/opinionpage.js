@@ -15,9 +15,16 @@ function loadOpinions() {
       for (let i = 0; i < data.length; i++) {
         let opinion = data[i];
 
+        let fieldsetElement = $(
+          "<fieldset class='opinionbox'><legend>" +
+            opinion["username"] +
+            "</legend></fieldset>"
+        );
         let opinionElement = $("<div class='contaienr mt-4'></div>");
-        opinionElement.append(opinion);
-        opinions.append(opinionElement);
+        opinionElement.append(opinion["opinion"]);
+        fieldsetElement.append(opinionElement);
+        opinions.append(fieldsetElement);
+        opinions.append("<br>");
       }
     },
     error: function (error) {
