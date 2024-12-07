@@ -1,5 +1,5 @@
 <?php
-include 'ctf_core.php';
+    session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +28,15 @@ include 'ctf_core.php';
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Inserisci la tua password" required>
+                </div>
+                <div id="errors">
+                    <?php
+                    if (isset($_SESSION['loginError'])) {
+                        //usa bootstrap per mostrare l'errore
+                        echo '<div class="alert alert-danger" role="alert">' . htmlspecialchars($_SESSION['loginError']) . '</div>';
+                        unset($_SESSION['loginError']);
+                    }
+                    ?>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
