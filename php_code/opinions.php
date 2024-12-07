@@ -1,21 +1,70 @@
 <?php
 
-$dbhost = 'db';
-$port = 5432;
-$dbname = 'mydatabase';
-$dbuser = 'myuser';
-$dbpassword = 'mypassword';
+$method = $_SERVER['REQUEST_METHOD'];
 
-    $dbconn = pg_connect("host=$dbhost dbname=$dbname user=$dbuser password=$dbpassword")  
-        or die('Could not connect: ' . pg_last_error());
-    $query = "SELECT * FROM opinions";
-    $result = pg_query($query) or die('Error message: ' . pg_last_error());
+switch ($method) {
+  case 'POST':
+    post_new_opinion();  
+    break;
+  case 'GET':
+    load_opinions();  
+    break;
+  default:
+    break;
+}
 
+function load_opinions(){
+
+include 'config.php';
+$dbconn = pg_connect("host=$dbhost dbname=$dbname user=$dbuser password=$dbpassword");
+if (!$dbconn) {
+    $_SESSION['loginError'] = 'Errore di connessione al database';
+    header("Location: index.php");
+    exit();
+}
+    $query = "SELECT opinion FROM opinions";
+    $result = pg_query($dbconn, $query);
+    if (!$result) {
+        $data = array('error' => 'Errore generico col database');
+        echo json_encode($data);
+        exit();
+    }
+
+    $data = [];
     while ($row = pg_fetch_row($result)) {
-    var_dump($row);
+    $data[] = $row[0];
     }
 
     pg_free_result($result);
     pg_close($dbconn);
 
+    echo json_encode($data);
+    exit();
+}
+
+function post_new_opinion(){
+
+include 'config.php';
+
+$dbconn = pg_connect("host=$dbhost dbname=$dbname user=$dbuser password=$dbpassword");
+if (!$dbconn) {
+    $_SESSION['loginError'] = 'Errore di connessione al database';
+    header("Location: index.php");
+    exit();
+}
+    $opinion = $_POST['opinion'];
+    $array = array("opinion" => $opinion);  
+    $result = pg_insert($dbconn, "opinions", $array);    
+    if (!$result) {
+        $data = array('error' => 'Errore generico col database');
+        echo json_encode($data);
+        exit();
+    }
+
+    pg_free_result($result);
+    pg_close($dbconn);
+
+    echo json_encode($result);
+    exit();
+}
 ?>

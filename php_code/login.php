@@ -1,6 +1,6 @@
 <?php
 if(session_status() == PHP_SESSION_NONE){
-session_start();
+	session_start();
 }
 
 include 'config.php';
@@ -22,16 +22,16 @@ if (!$dbconn) {
 $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
 $result = pg_query($dbconn, $query);
 if (!$result) {
-    $_SESSION['loginError'] = 'Errore generico col database';
-    header("Location: index.php");
-    exit();
+	$data = array('error' => 'Errore generico col database');
+    echo json_encode($data);
+	exit();
 }
-$redirect = "opinions.php";
 
 //verifica se l'utente esiste
 if(pg_num_rows($result) == 0) {
-	$_SESSION['loginError'] = 'Username e password non corrispondono';
-	$redirect = "index.php";
+	$data = array('error' => 'Username e password non corrispondono');
+    echo json_encode($data);
+	exit();
 }
 
 while ($row = pg_fetch_row($result)) {
@@ -42,6 +42,8 @@ while ($row = pg_fetch_row($result)) {
 
 pg_free_result($result);
 pg_close($dbconn);
-header("Location: $redirect", true);
+setcookie('ctf_firstStep','6jF7Til6%Sj7rr3X^6PYqdJRXPPzodz22fv7xuWiv');
+
+echo json_encode($result);
 exit();
 ?>
