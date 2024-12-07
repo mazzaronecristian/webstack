@@ -5,13 +5,18 @@ services:
       - 8080:80
     volumes:
         - ./php_code/:/var/www/html/
-
   php:
     build: ./php_code/
     expose:
       - 9000
     volumes:
         - ./php_code/:/var/www/html/
+  ssh:
+    build: ./ssh/
+    expose:
+      - 22
+    ports:
+      - 2222:22
   db:
     image: postgres:latest
     container_name: postgres_db
