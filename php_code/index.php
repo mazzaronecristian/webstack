@@ -9,7 +9,6 @@
     include 'header.php';
 ?>
 <body class="bg-light">
-    <span id='parolaNascosta'>cookie</span>
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card p-4 shadow" style="width: 400px;">
             <h3 class="text-center mb-4">Login</h3>

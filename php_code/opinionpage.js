@@ -9,6 +9,7 @@ function loadOpinions() {
     dataType: "json",
     success: function (data) {
       let opinions = $("#allopinions");
+      opinions.empty();
       opinions.append(
         " <h1 class='text-center opinionboxtitle'>Here are all the opinions</h1> "
       );
@@ -33,6 +34,7 @@ function loadOpinions() {
     },
   });
 }
+
 function sendOpinion() {
   $.ajax({
     url: "http://localhost:8080/opinions.php",

@@ -20,6 +20,8 @@ RUN echo "6jF7Til6%25Sj7rr3X%5E6PYqdJRXPPzodz22fv7xuWiv" > passphrase.txt && \
     gpg --batch --yes --passphrase-file passphrase.txt --symmetric /home/ctf_doggy/flag.txt && \
     rm passphrase.txt /home/ctf_doggy/flag.txt
 
+EXPOSE 22
+
 # Comando per avviare SSH
 CMD ["/usr/sbin/sshd", "-D"]
 
